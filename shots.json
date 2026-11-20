@@ -1,5 +1,6 @@
 [
-  { "file": "1-checklist.jpg", "path": "/", "viewport": { "width": 1280, "height": 800 } },
-  { "file": "2-silver.jpg", "path": "/", "grade": "silver", "viewport": { "width": 1280, "height": 800 } },
-  { "file": "3-bronze.jpg", "path": "/", "grade": "bronze", "scroll": 1400, "viewport": { "width": 1280, "height": 800 } }
+  { "file": "1-board.jpg", "path": "/?demo=1&spoilers=shown#/board", "note": "The board with 22 trophies ticked in the read-only demo save: progress ring, grade split, kind chips, and the missable trophy open in the detail panel.", "viewport": { "width": 1280, "height": 860 } },
+  { "file": "2-detail.jpg", "path": "/?demo=1&spoilers=shown#/board/cunning-stunts", "note": "Trophy detail: Cunning Stunts, its official description, own-words guide, numbered steps, facts grid and per-trophy sources — reached by the deep link.", "viewport": { "width": 1280, "height": 860 } },
+  { "file": "3-roadmap.jpg", "path": "/?demo=1&spoilers=shown#/roadmap", "note": "Platinum roadmap: the missable banner, the six headline numbers and the phases with live progress bars.", "viewport": { "width": 1280, "height": 860 } },
+  { "file": "4-spoilers.jpg", "path": "/?demo=1&spoilers=hidden#/board/this-was-no-boat-accident", "note": "Spoiler mode on: an unearned hidden trophy keeps its name, description, chapter and location redacted — only grade and kind are shown.", "viewport": { "width": 1280, "height": 860 } }
 ]
