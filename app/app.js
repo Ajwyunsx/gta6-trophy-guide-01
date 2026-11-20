@@ -32,12 +32,39 @@
     earnedOnly: false,
     unearnedOnly: false,
     spoilers: true,
-    selected: null
+    selected: null,
+    demo: false      // ?demo=1: a sample save held in memory, never written to localStorage
   };
+
+  /* A demo save exists so a screenshot (or a curious visitor) can see the tracker with progress
+     in it without inheriting somebody else's ticks. It is read-only: with ?demo=1 loaded, save()
+     does nothing and the toolbar says so. */
+  var DEMO_EARNED = [
+    "vice-got-a-price", "just-like-paradise", "paradise-lost", "t-stars-ass-drug-money",
+    "vice-city-baby", "top-of-the-world-ma", "you-gotta-know-when-to-get-off", "trust",
+    "break-the-bank", "family-matters", "dwnfall", "hi-jacked", "snow-storm",
+    "retail-therapy", "sneakthief", "lets-go-bowling", "dime-on-the-dollar",
+    "baited-my-tackle", "strangers-and-freaks", "master-of-none", "top-fun",
+    "earn-cash-not-kudos", "stick-fiddler", "one-last-thing", "hot-together",
+    "whip-it-good", "you-wainker", "the-goodtime-state", "little-boxes",
+    "in-the-beginning", "treat-yo-self", "positive-mental-attitude"
+  ];
+
+  function param(name) {
+    var m = new RegExp("[?&]" + name + "=([^&#]*)").exec(String(window.location.href));
+    return m ? decodeURIComponent(m[1]) : null;
+  }
 
   /* ── storage ─────────────────────────────────────────── */
 
   function load() {
+    if (param("demo") === "1") {
+      state.demo = true;
+      DEMO_EARNED.forEach(function (slug) { state.earned[slug] = 1; });
+      var sp = param("spoilers");
+      if (sp === "0") state.spoilers = false;
+      return;
+    }
     var raw = null;
     try { raw = window.localStorage.getItem(STORE); } catch (e) { raw = null; }
     if (!raw) return;
@@ -51,6 +78,7 @@
   }
 
   function save() {
+    if (state.demo) { renderSavePreview(); return; }
     var payload = {
       v: 1,
       game: DATA.game,
@@ -329,7 +357,8 @@
     var rest = others.filter(function (t) { return !isEarned(t); }).length;
     $("platinumLine").textContent = plat && isEarned(plat)
       ? "platinum earned"
-      : rest + " trophy" + (rest === 1 ? "" : "s") + " between you and the platinum";
+      : rest + (rest === 1 ? " trophy" : " trophies") + " between you and the platinum";
+    $("ring").setAttribute("aria-label", pct + "% complete: " + got + " of " + total + " trophies");
   }
 
   /* ── roadmap ─────────────────────────────────────────── */
@@ -456,6 +485,14 @@
   }
 
   function renderSavePreview() {
+    if (state.demo) {
+      $("savePreview").textContent = JSON.stringify({
+        demo: true,
+        note: "This page was opened with ?demo=1, so the 32/55 save you see is held in memory and never written to this browser.",
+        earned: Object.keys(state.earned).sort()
+      }, null, 1);
+      return;
+    }
     var raw = "{}";
     try { raw = window.localStorage.getItem(STORE) || "{}"; } catch (e) { raw = "{}"; }
     try { raw = JSON.stringify(JSON.parse(raw), null, 1); } catch (e) { /* keep raw */ }
@@ -551,6 +588,12 @@
     });
     $("spoilerHint").textContent = state.spoilers ? "Story names hidden until earned" : "Everything visible — spoilers on";
 
+    if (state.demo) {
+      $("demoFlag").hidden = false;
+      $("resetBtn").disabled = true;
+      $("resetBtn").title = "A demo save is read-only";
+    }
+
     $("exportBtn").addEventListener("click", exportProgress);
     $("importFile").addEventListener("change", function (ev) {
       var f = ev.target.files && ev.target.files[0];
@@ -581,7 +624,9 @@
   /* Deep links: #roadmap, #missables, #data, #t/<slug> — a linkable trophy page is half the
      point of an offline guide, and it lets a screenshot or a bookmark land on one guide. */
   function readHash() {
-    var h = String(window.location.hash || "").replace(/^#/, "");
+    // "/board", not "#board": an id on the page would make the browser jump to that element
+    // before the script runs, and the board's <ul> happens to be named board.
+    var h = String(window.location.hash || "").replace(/^#\/?/, "");
     if (!h) return;
     if (h.indexOf("t/") === 0) {
       var slug = h.slice(2);
