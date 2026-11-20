@@ -91,10 +91,11 @@ h1 {
   filter: drop-shadow(0 0 7px rgba(255,46,136,.75));
 }
 .ring-num {
-  position: absolute; inset: 0; display: grid; place-items: center;
-  font-family: var(--mono); font-size: 17px; font-weight: 700; letter-spacing: -.02em;
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  white-space: nowrap;
+  font-family: var(--mono); font-size: 16px; font-weight: 700; letter-spacing: -.02em;
 }
-.ring-num em { font-style: normal; font-size: 10px; color: var(--dim); margin-left: 1px; }
+.ring-num em { font-style: normal; font-size: 10px; color: var(--dim); margin-left: 2px; line-height: 1; }
 
 .tally { display: flex; flex-direction: column; line-height: 1.35; }
 .tally strong { font-family: var(--mono); font-size: 15px; letter-spacing: .03em; }
@@ -329,6 +330,11 @@ main { position: relative; z-index: 1; padding: 22px 34px 60px; max-width: 1500p
 .pill.on { border-color: var(--ok); color: #d6ffe9; background: rgba(78,240,164,.1); }
 .pill i { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .7; font-style: normal; }
 .pill.miss { border-color: #7a2f4a; color: #ffb0c8; }
+.pill.locked {
+  border-style: dashed; border-color: #3a3350; color: var(--dim-2); cursor: default;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .04em;
+}
+.pill.locked:hover { border-color: #3a3350; color: var(--dim-2); }
 .stage-bar { height: 3px; border-radius: 2px; background: #1a1f2e; margin-top: 13px; overflow: hidden; }
 .stage-bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--cyan), var(--pink)); transition: width .4s; }
 

@@ -352,15 +352,27 @@
       card.appendChild(el("p", "stage-note", stage.note));
 
       var pills = el("div", "stage-list");
+      var locked = 0;
       items.forEach(function (t) {
+        if (masked(t)) { locked++; return; }
         var p = el("button", "pill" + (isEarned(t) ? " on" : "") + (t.missable ? " miss" : ""));
         p.type = "button";
         p.appendChild(el("i"));
-        p.appendChild(document.createTextNode(masked(t) ? "Hidden story trophy" : t.name));
-        p.title = masked(t) ? "Earn it to reveal" : t.description;
+        p.appendChild(document.createTextNode(t.name));
+        p.title = t.description;
         p.addEventListener("click", function () { setEarned(t, !isEarned(t)); });
         pills.appendChild(p);
       });
+      if (locked) {
+        // Twelve identical "hidden story trophy" pills would say nothing. One pill, one number.
+        var lp = el("button", "pill locked", locked + (locked === 1 ? " hidden story trophy" : " hidden story trophies"));
+        lp.type = "button";
+        lp.title = "Names hidden until earned — turn the spoiler shield off on the board to read them";
+        lp.addEventListener("click", function () {
+          toast("Hidden until earned. The shield switch is on the board.");
+        });
+        pills.appendChild(lp);
+      }
       card.appendChild(pills);
 
       var bar = el("div", "stage-bar");
@@ -589,10 +601,14 @@
     buildChips();
     renderData();
     renderMissables();
+    readHash();
+    // An empty detail panel on a first visit is a dead half-screen. Open the first row instead.
+    if (!state.selected) {
+      var first = DATA.trophies.filter(matches)[0];
+      if (first) state.selected = first.slug;
+    }
     renderAll();
     renderSavePreview();
-    readHash();
-    renderAll();
     window.addEventListener("hashchange", function () { readHash(); renderAll(); });
   }
 
