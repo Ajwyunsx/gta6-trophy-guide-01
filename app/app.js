@@ -40,7 +40,7 @@
      in it without inheriting somebody else's ticks. It is read-only: with ?demo=1 loaded, save()
      does nothing and the toolbar says so. */
   var DEMO_EARNED = [
-    "vice-got-a-price", "just-like-paradise", "paradise-lost", "t-stars-ass-drug-money",
+    "just-like-paradise", "paradise-lost", "t-stars-ass-drug-money",
     "vice-city-baby", "top-of-the-world-ma", "you-gotta-know-when-to-get-off", "trust",
     "break-the-bank", "family-matters", "dwnfall", "hi-jacked", "snow-storm",
     "retail-therapy", "sneakthief", "lets-go-bowling", "dime-on-the-dollar",
@@ -488,7 +488,7 @@
     if (state.demo) {
       $("savePreview").textContent = JSON.stringify({
         demo: true,
-        note: "This page was opened with ?demo=1, so the 32/55 save you see is held in memory and never written to this browser.",
+        note: "This page was opened with ?demo=1, so the 31/55 save you see is held in memory and never written to this browser.",
         earned: Object.keys(state.earned).sort()
       }, null, 1);
       return;

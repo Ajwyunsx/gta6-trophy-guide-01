@@ -77,12 +77,13 @@ Where two sources disagreed — and they do, on whether Kenton's chain expires a
 
 Dark neon, and unapologetically so: near-black `#08080c`, magenta `#ff2e88`, cyan `#22e0d6`. The reference points are the in-game HUD and a printed ledger — thin rules, tabular numbers, a magnifying-glass progress ring drawn as SVG rather than a chart library. System font stack only, zero webfonts, zero image assets. Everything you see is CSS and inline SVG, so the whole app is three files and about 90 KB, and there are no Rockstar assets anywhere near it.
 
-The screenshots in `screenshots/` are real headless-Chrome renders of the running app, not mockups. They were taken with `?demo=1` — a read-only sample save that lives in memory and never touches your `localStorage`, so a screenshot can show 32 trophies ticked without anyone inheriting someone else's progress:
+The screenshots in `screenshots/` are real headless-Chrome renders of the running app, not mockups. They were taken with `?demo=1` — a read-only sample save that lives in memory and never touches your `localStorage`, so a screenshot can show 31 trophies ticked without anyone inheriting someone else's progress:
 
 ```
-http://localhost:4173/?demo=1#/board
-http://localhost:4173/?demo=1#/t/cunning-stunts
-http://localhost:4173/?demo=1#/roadmap
+http://localhost:4173/?demo=1#/t/vice-got-a-price   the board + platinum write-up
+http://localhost:4173/?demo=1#/t/cunning-stunts     a trophy page
+http://localhost:4173/?demo=1#/roadmap             the seven stages
+http://localhost:4173/?demo=1#/t/capital-offense   the shield, mid-veil
 ```
 
 ## Layout
