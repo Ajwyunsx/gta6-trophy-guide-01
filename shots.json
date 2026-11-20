@@ -1,26 +1,26 @@
 [
   {
     "file": "1-board.jpg",
-    "path": "/?demo=1#/t/vice-got-a-price",
-    "note": "The board on a read-only 31/55 demo save: 56% ring, grade and kind chips in the toolbar, spoiler shield on, and the platinum open in the detail panel with its own write-up.",
-    "viewport": { "width": 1280, "height": 900 }
+    "path": "/?demo=1&spoilers=0#/t/vice-got-a-price",
+    "note": "The board on a read-only 31/55 demo save: the progress ring, kind and grade chips, search, the missable/earned filters and the spoiler switch, with the platinum open in the detail panel — its grade, its description, my own write-up and three cited sources.",
+    "viewport": { "width": 1280, "height": 1040 }
   },
   {
     "file": "2-detail.jpg",
-    "path": "/?demo=1#/t/cunning-stunts",
-    "note": "A trophy page reached by deep link: Cunning Stunts, its PS5 description, the guide in my own words (which stunts count, how many, where to grind) and the timing note.",
-    "viewport": { "width": 1280, "height": 900 }
+    "path": "/?demo=1&spoilers=0#/t/positive-mental-attitude",
+    "note": "The one missable trophy, reached by deep link: MISSABLE and 18 SPOTS tags, my guide to the Chapter 1 balcony meditation that closes with the chapter, the timing note, and the sources it rests on.",
+    "viewport": { "width": 1280, "height": 1120 }
   },
   {
     "file": "3-roadmap.jpg",
     "path": "/?demo=1#/roadmap",
     "note": "The platinum roadmap: seven ordered stages with live progress bars and per-stage trophy pills; unearned hidden names collapse into one counted pill instead of a wall of 'hidden trophy'.",
-    "viewport": { "width": 1280, "height": 900 }
+    "viewport": { "width": 1280, "height": 1240 }
   },
   {
     "file": "4-spoilers.jpg",
-    "path": "/?demo=1#/t/capital-offense",
-    "note": "The spoiler shield doing its job: an unearned hidden trophy keeps its name, description and guide redacted, and the veil says how to reveal them.",
-    "viewport": { "width": 1280, "height": 900 }
+    "path": "/?demo=1#/t/road-to-rehabilitation",
+    "note": "The spoiler shield doing its job: an unearned hidden story trophy keeps its name, description and guide redacted, and the veil explains how to reveal them.",
+    "viewport": { "width": 1280, "height": 820 }
   }
 ]
