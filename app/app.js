@@ -510,18 +510,7 @@
 
   function wire() {
     Array.prototype.forEach.call(document.querySelectorAll(".tab"), function (tab) {
-      tab.addEventListener("click", function () {
-        var view = tab.dataset.view;
-        state.view = view;
-        Array.prototype.forEach.call(document.querySelectorAll(".tab"), function (o) {
-          var on = o === tab;
-          o.classList.toggle("is-on", on);
-          o.setAttribute("aria-selected", String(on));
-        });
-        Array.prototype.forEach.call(document.querySelectorAll(".view"), function (v) {
-          v.classList.toggle("is-on", v.id === "view-" + view);
-        });
-      });
+      tab.addEventListener("click", function () { showView(tab.dataset.view); });
     });
 
     $("q").addEventListener("input", function (ev) {
@@ -564,6 +553,31 @@
     });
   }
 
+  function showView(view) {
+    if (!view) return;
+    state.view = view;
+    Array.prototype.forEach.call(document.querySelectorAll(".tab"), function (o) {
+      var on = o.dataset.view === view;
+      o.classList.toggle("is-on", on);
+      o.setAttribute("aria-selected", String(on));
+    });
+    Array.prototype.forEach.call(document.querySelectorAll(".view"), function (v) {
+      v.classList.toggle("is-on", v.id === "view-" + view);
+    });
+  }
+
+  /* Deep links: #roadmap, #missables, #data, #t/<slug> — a linkable trophy page is half the
+     point of an offline guide, and it lets a screenshot or a bookmark land on one guide. */
+  function readHash() {
+    var h = String(window.location.hash || "").replace(/^#/, "");
+    if (!h) return;
+    if (h.indexOf("t/") === 0) {
+      var slug = h.slice(2);
+      if (bySlug(slug)) { state.selected = slug; showView("board"); return; }
+    }
+    if (h === "roadmap" || h === "missables" || h === "data" || h === "board") showView(h);
+  }
+
   function boot() {
     if (!DATA || !Array.isArray(DATA.trophies)) {
       document.body.insertAdjacentHTML("afterbegin",
@@ -577,6 +591,9 @@
     renderMissables();
     renderAll();
     renderSavePreview();
+    readHash();
+    renderAll();
+    window.addEventListener("hashchange", function () { readHash(); renderAll(); });
   }
 
   boot();
