@@ -3,121 +3,138 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Leonida Legend — GTA VI trophy guide &amp; tracker</title>
-<meta name="description" content="Offline guide and checklist for all 55 PlayStation 5 trophies of Grand Theft Auto VI.">
-<meta name="color-scheme" content="dark">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0a12'/%3E%3Crect x='7' y='13' width='4' height='12' rx='1.5' fill='%2338e8ff'/%3E%3Crect x='14' y='7' width='4' height='18' rx='1.5' fill='%23ff2e88'/%3E%3Crect x='21' y='16' width='4' height='9' rx='1.5' fill='%2338e8ff'/%3E%3C/svg%3E">
+<title>Leonida Ledger — GTA VI trophy tracker</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="sky" aria-hidden="true"></div>
 
-<a class="skip" href="#list">Skip to the trophy list</a>
+<div class="grain" aria-hidden="true"></div>
 
-<header class="top">
+<header class="masthead">
   <div class="brand">
-    <div class="mark" aria-hidden="true"><span></span><span></span><span></span></div>
+    <span class="mark" aria-hidden="true">◆</span>
     <div>
-      <h1>Leonida Legend</h1>
-      <p class="sub">GTA VI · PlayStation 5 · 55 trophies · works offline</p>
+      <h1>Leonida Ledger</h1>
+      <p class="tagline">GTA VI · 55 PS5 trophies · offline guide and tracker</p>
     </div>
   </div>
-
-  <div class="score" id="score">
-    <div class="ring" id="ring" role="img" aria-label="Overall completion"><span id="pct">0<small>%</small></span></div>
-    <div class="counts">
+  <div class="scoreboard">
+    <div class="ring" id="ring" role="img" aria-label="completion">
+      <svg viewBox="0 0 120 120" aria-hidden="true">
+        <circle class="ring-bg" cx="60" cy="60" r="52"></circle>
+        <circle class="ring-fg" id="ringArc" cx="60" cy="60" r="52"></circle>
+      </svg>
+      <span class="ring-num" id="ringNum">0<em>%</em></span>
+    </div>
+    <div class="tally">
       <strong id="earnedCount">0 / 55</strong>
-      <span id="gradeLine" class="muted">platinum 0 · gold 0 · silver 0 · bronze 0</span>
+      <span id="platinumLine">platinum locked</span>
     </div>
-  </div>
-
-  <div class="topActions">
-    <button id="spoilerBtn" class="btn ghost" type="button" aria-pressed="false" title="Hide story trophy names and details until they are earned">Spoilers: hidden</button>
-    <button id="exportBtn" class="btn" type="button">Export</button>
-    <label class="btn ghost file">Import<input id="importInput" type="file" accept="application/json,.json"></label>
   </div>
 </header>
 
 <nav class="tabs" role="tablist">
-  <button class="tab on" data-view="board" role="tab" aria-selected="true">Trophy board</button>
-  <button class="tab" data-view="roadmap" role="tab" aria-selected="false">Platinum roadmap</button>
-  <button class="tab" data-view="about" role="tab" aria-selected="false">Sources &amp; method</button>
+  <button class="tab is-on" data-view="board" role="tab" aria-selected="true">Board</button>
+  <button class="tab" data-view="roadmap" role="tab" aria-selected="false">Roadmap</button>
+  <button class="tab" data-view="missables" role="tab" aria-selected="false">Missables</button>
+  <button class="tab" data-view="data" role="tab" aria-selected="false">Data</button>
 </nav>
 
 <main>
-  <!-- ── board ───────────────────────────────────────────────── -->
-  <section id="view-board" class="view on" aria-label="Trophy board">
-    <div class="filters">
-      <label class="search">
-        <span aria-hidden="true">⌕</span>
-        <input id="search" type="search" placeholder="Search name, guide, place…  (press /)" autocomplete="off">
-      </label>
-
-      <div class="chips" id="kindChips" role="group" aria-label="Filter by kind"></div>
-
-      <div class="selects">
-        <label>Grade
-          <select id="gradeFilter">
-            <option value="all">All grades</option>
-            <option value="platinum">Platinum</option>
-            <option value="gold">Gold</option>
-            <option value="silver">Silver</option>
-            <option value="bronze">Bronze</option>
-          </select>
-        </label>
-        <label class="check"><input id="missableOnly" type="checkbox"> Missable only</label>
-        <label class="check"><input id="hideEarned" type="checkbox"> Hide earned</label>
-        <button id="resetFilters" class="linkBtn" type="button">Reset</button>
+  <!-- ── BOARD ───────────────────────────────────────────── -->
+  <section class="view is-on" id="view-board">
+    <div class="console">
+      <div class="search">
+        <label for="q" class="sr">Search trophies</label>
+        <input id="q" type="search" placeholder="Search a trophy, a mission, a place…" autocomplete="off">
       </div>
-    </div>
-
-    <div class="board">
-      <div class="listPane">
-        <div class="listHead">
-          <span id="listCount">55 trophies</span>
-          <span class="muted" id="listHint">click a row for the guide</span>
+      <div class="filters" id="kindFilters" role="group" aria-label="Filter by kind"></div>
+      <div class="filters filters-alt">
+        <div id="gradeFilters" role="group" aria-label="Filter by grade"></div>
+        <div class="switches">
+          <label class="switch"><input type="checkbox" id="fMissable"><span>Missable only</span></label>
+          <label class="switch"><input type="checkbox" id="fEarned"><span>Earned only</span></label>
+          <label class="switch"><input type="checkbox" id="fUnearned"><span>Still owed</span></label>
         </div>
-        <ol class="list" id="list" tabindex="0"></ol>
-        <p class="empty" id="empty" hidden>No trophy matches those filters.</p>
       </div>
+      <div class="toolbar">
+        <label class="switch spoil"><input type="checkbox" id="spoilers"><span>Spoiler shield</span></label>
+        <span class="hint" id="spoilerHint">Story names hidden until earned</span>
+        <div class="spacer"></div>
+        <button class="btn" id="exportBtn" type="button">Export progress</button>
+        <label class="btn btn-ghost">Import
+          <input type="file" id="importFile" accept="application/json,.json" hidden>
+        </label>
+        <button class="btn btn-ghost" id="resetBtn" type="button">Reset</button>
+      </div>
+      <p class="result-line" id="resultLine"></p>
+    </div>
 
-      <article class="detail" id="detail" aria-live="polite"></article>
+    <div class="board-wrap">
+      <ul class="board" id="board"></ul>
+      <aside class="detail" id="detail" aria-live="polite">
+        <div class="detail-empty" id="detailEmpty">
+          <p class="eyebrow">No trophy selected</p>
+          <p>Pick a row to read its guide, its timing note and the sources behind it. Progress is saved in this browser as you tick.</p>
+        </div>
+        <div class="detail-body" id="detailBody" hidden></div>
+      </aside>
     </div>
   </section>
 
-  <!-- ── roadmap ─────────────────────────────────────────────── -->
-  <section id="view-roadmap" class="view" aria-label="Platinum roadmap">
-    <div id="roadmap" class="roadmap"></div>
+  <!-- ── ROADMAP ─────────────────────────────────────────── -->
+  <section class="view" id="view-roadmap">
+    <div class="lede">
+      <h2>The road to <em>Vice Got a Price!</em></h2>
+      <p>Seven stages. Everything in stages 2 to 6 survives the credits — the story is the only part with a clock on it, and only one meditation inside it can actually be lost. About 200 hours end to end, most of it the 100% checklist.</p>
+    </div>
+    <ol class="road" id="road"></ol>
   </section>
 
-  <!-- ── about ───────────────────────────────────────────────── -->
-  <section id="view-about" class="view" aria-label="Sources and method">
-    <div class="about">
-      <h2>Where every fact came from</h2>
-      <p class="lede">Every trophy's guide names the guide or database its facts were checked against. Names, descriptions and grades are shown exactly as the PlayStation 5 list publishes them; nothing here is copied from another guide.</p>
-      <div id="sourceList" class="sourceList"></div>
+  <!-- ── MISSABLES ───────────────────────────────────────── -->
+  <section class="view" id="view-missables">
+    <div class="lede">
+      <h2>What can actually be lost</h2>
+      <p>One trophy. That is the honest answer: out of 55, only <strong>Positive Mental Attitude</strong> has a window that closes, and it closes at the end of Chapter 1. The rest of this page explains why the usual suspects are not missable, so you can stop worrying about them.</p>
+    </div>
+    <div class="cards" id="missableCards"></div>
+    <div class="lede lede-tight">
+      <h3>Things that look missable but are not</h3>
+    </div>
+    <ul class="notlist" id="notMissable"></ul>
+  </section>
 
-      <h2>How this tracker works</h2>
-      <ul class="ticks">
-        <li>Ticks save to this browser's localStorage — no account, no network.</li>
-        <li><strong>Export</strong> writes <code>leonida-progress.json</code>; <strong>Import</strong> reads it back, so progress survives a new browser.</li>
-        <li>The spoiler switch hides the names and descriptions of story and secret trophies until you mark them earned. Earned trophies always show.</li>
-        <li>Filters: kind, grade, missable only, hide earned, plus a full-text search across descriptions, guides and locations.</li>
-        <li>Views have addresses — <code>#/board</code>, <code>#/board/cunning-stunts</code>, <code>#/roadmap</code> — and <code>?demo=1</code> opens a read-only mid-run save for screenshots.</li>
-      </ul>
-
-      <h2>The list in numbers</h2>
-      <ul class="ticks" id="numbers"></ul>
-      <p class="fine">Compiled 21 November 2026 from the published PS5 list (Exophase / PSNProfiles agree on every name, description and grade) and cross-checked against PowerPyx, Push Square and Beebom. Guide prices and counts change with patches; the trophy requirements have not.</p>
+  <!-- ── DATA ────────────────────────────────────────────── -->
+  <section class="view" id="view-data">
+    <div class="lede">
+      <h2>Where every fact comes from</h2>
+      <p>The official names, descriptions and grades are PlayStation's, as Exophase, TrueTrophies and GTABase list them. Every route, count and warning below is written here from those sources and cited per trophy — the app fetches nothing at run time, so the links open only when you follow them.</p>
+    </div>
+    <div class="datagrid">
+      <div class="panel">
+        <h3>Set at a glance</h3>
+        <dl class="stats" id="setStats"></dl>
+      </div>
+      <div class="panel">
+        <h3>Source list</h3>
+        <ol class="srclist" id="sourceList"></ol>
+      </div>
+    </div>
+    <div class="panel panel-wide">
+      <h3>Your saved file</h3>
+      <p class="fine">Progress lives in this browser's localStorage under <code>leonida-ledger-v1</code>. Export writes a small JSON file you can keep or move to another machine; import merges it back and never removes a tick you already have. Nothing leaves this device.</p>
+      <pre class="savebox" id="savePreview"></pre>
     </div>
   </section>
 </main>
 
-<footer class="foot">
-  <span>Unofficial fan guide. No Rockstar artwork, logos or game screenshots.</span>
-  <span id="saved" class="muted">saved locally</span>
+<footer>
+  <p>Unofficial fan guide. No Rockstar Games artwork or logos are used; the look is this guide's own. Trophy names and descriptions remain the property of their owners and are shown for reference.</p>
 </footer>
 
-<script type="module" src="app.js"></script>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="data/trophies.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
